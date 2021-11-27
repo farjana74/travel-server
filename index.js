@@ -21,10 +21,13 @@ async function run() {
     try {
       await client.connect();
       const database = client.db("travel");
-      const booking= client.db("booking");
-      const manage = client.db('manage')
       const travelCollection = database.collection("services");
-      const orderCollection = booking.collection('orders')
+      
+      const orderCollection = database.collection('orders')
+
+      
+      
+      
     //   const manageCollection =manage.collection('all')
 
 
@@ -54,18 +57,9 @@ res.json(service)
 
 
      
-    // //   post manageOrder
-    // app.get('/manageOrder',async(req,res)=>{
-    //     const cursor =   manageCollection.find({})
-    //     const manage = await cursor.toArray();
-    //     res.json(manage);
-    //     // console.log(result);
-    // })
+// get api  manageorder
 
-
-// post api for manageorder
-
-app.get('/manageOrder',async(req,res)=>{
+app.get('/orders',async(req,res)=>{
     const cursor = orderCollection.find({});
     const result= await cursor.toArray();
     res.send(result)
@@ -85,9 +79,9 @@ app.get('/manageOrder',async(req,res)=>{
       });
 
 
-    // add order api
+    // post order api
 
-    app.post('/myOrder',async(req,res)=>{
+    app.post('/orders',async(req,res)=>{
         const order = req.body;
        const result = await orderCollection.insertOne(order)
        console.log(result)
@@ -123,5 +117,5 @@ app.get('/',(req,res)=>{
 })
 
 app.listen(port,()=>{
-console.log('travell agency',port)
+console.log('travel agency',port)
 })
